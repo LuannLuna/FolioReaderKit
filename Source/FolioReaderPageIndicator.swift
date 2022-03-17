@@ -13,7 +13,7 @@ public class FolioReaderPageIndicator: UIView {
     var minutesLabel: UILabel!
     var totalMinutes: Int!
     var totalPages: Int!
-    open var currentPage: Int = 1 {
+    public var currentPage: Int = 1 {
         didSet { self.reloadViewWithPage(self.currentPage) }
     }
 
