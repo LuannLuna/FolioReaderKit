@@ -8,12 +8,12 @@
 
 import UIKit
 
-class FolioReaderPageIndicator: UIView {
+public class FolioReaderPageIndicator: UIView {
     var pagesLabel: UILabel!
     var minutesLabel: UILabel!
     var totalMinutes: Int!
     var totalPages: Int!
-    var currentPage: Int = 1 {
+    open var currentPage: Int = 1 {
         didSet { self.reloadViewWithPage(self.currentPage) }
     }
 

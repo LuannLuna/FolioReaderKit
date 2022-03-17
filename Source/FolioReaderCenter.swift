@@ -56,7 +56,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     var totalPages: Int = 0
     var tempFragment: String?
     var animator: ZFModalTransitionAnimator!
-    var pageIndicatorView: FolioReaderPageIndicator?
+    open var pageIndicatorView: FolioReaderPageIndicator?
     var pageIndicatorHeight: CGFloat = 20
     var recentlyScrolled = false
     var recentlyScrolledDelay = 2.0 // 2 second delay until we clear recentlyScrolled
