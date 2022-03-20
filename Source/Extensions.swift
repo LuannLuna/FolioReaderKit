@@ -569,3 +569,16 @@ extension UserDefaults: ObjectSavable {
         }
     }
 }
+
+extension Int {
+    var toDouble: Double { Double(self) }
+    var toFloat: Float { Float(self) }
+}
+
+extension Double {
+    var toInt: Int { Int(self) }
+}
+
+extension Float {
+    var toInt: Int { Int(self) }
+}
