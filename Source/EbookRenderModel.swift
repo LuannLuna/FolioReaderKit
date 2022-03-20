@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct EbookRenderModel: Codable {
+public struct EbookRenderModel: Codable {
     var totalCharacters: Int
     var charactersPerPage = 100
     var charactersPerCap = 1000
