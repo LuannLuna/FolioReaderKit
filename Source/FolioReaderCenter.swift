@@ -29,6 +29,11 @@ import ZFDragableModalTransition
     ///
     /// - Parameter pageNumber: The appeared page item
     @objc optional func pageItemChanged(_ pageNumber: Int)
+    
+    /// Notifies when reader did close
+    ///
+    ///  - No Parameters Needed
+    @objc optional func renderDidClose()
 
 }
 
@@ -1323,6 +1328,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     @objc func closeReader(_ sender: UIBarButtonItem) {
         dismiss()
         folioReader.close()
+        delegate?.renderDidClose?()
     }
 
     /**
