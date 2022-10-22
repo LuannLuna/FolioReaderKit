@@ -35,6 +35,8 @@ import ZFDragableModalTransition
     ///  - No Parameters Needed
     @objc optional func renderDidClose()
 
+    
+    @objc optional func pageDidChanged(_ page: FolioReaderPage)
 }
 
 /// The base reader class

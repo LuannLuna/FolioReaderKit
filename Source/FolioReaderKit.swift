@@ -90,11 +90,12 @@ public enum MediaOverlayStyle: Int {
     /// Called when reader did closed.
     @available(*, deprecated, message: "Use 'folioReaderDidClose(_ folioReader: FolioReader)' instead.")
     @objc optional func folioReaderDidClosed()
+    
+    @objc optional func folioReaderScrollPage(_ folioReader: FolioReader)
 }
 
 /// Main Library class with some useful constants and methods
 open class FolioReader: NSObject {
-
     public override init() { }
 
     deinit {
@@ -350,6 +351,7 @@ extension FolioReader {
             ] as [String : Any]
 
         self.savedPositionForCurrentBook = position
+        self.delegate?.folioReaderScrollPage?(self)
     }
 
     /// Closes and save the reader current instance.

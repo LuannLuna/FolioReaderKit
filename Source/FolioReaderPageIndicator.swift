@@ -8,6 +8,10 @@
 
 import UIKit
 
+public protocol FolioReaderPageIndicatorDelegate: AnyObject {
+    func pageScrolled(currentPage: Int, totalPages: Int)
+}
+
 public class FolioReaderPageIndicator: UIView {
     var pagesLabel: UILabel!
     var minutesLabel: UILabel!
@@ -19,6 +23,7 @@ public class FolioReaderPageIndicator: UIView {
 
     fileprivate var readerConfig: FolioReaderConfig
     fileprivate var folioReader: FolioReader
+    open weak var delegate: FolioReaderPageIndicatorDelegate?
 
     init(frame: CGRect, readerConfig: FolioReaderConfig, folioReader: FolioReader) {
         self.readerConfig = readerConfig
@@ -105,6 +110,7 @@ public class FolioReaderPageIndicator: UIView {
         }
         
         reloadView(updateShadow: false)
+        delegate?.pageScrolled(currentPage: page, totalPages: totalPages)
     }
 }
 

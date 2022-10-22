@@ -14,7 +14,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var bookOne: UIButton?
     @IBOutlet weak var bookTwo: UIButton?
     let folioReader = FolioReader()
-
+    
+    
+    var readingPercentage: [Int: [Int]] = [:]
+    var currentCap: Int?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -64,7 +68,11 @@ class ViewController: UIViewController {
         }
 
         let readerConfiguration = self.readerConfiguration(forEpub: epub)
+        folioReader.delegate = self
         folioReader.presentReader(parentViewController: self, withEpubPath: bookPath, andConfig: readerConfiguration, shouldRemoveEpub: false)
+        folioReader.readerCenter?.delegate = self
+        folioReader.readerCenter?.pageDelegate = self
+        folioReader.readerContainer?.centerViewController?.pageIndicatorView?.delegate = self
     }
 
     private func setCover(_ button: UIButton?, index: Int) {
@@ -83,8 +91,54 @@ class ViewController: UIViewController {
         }
     }
 }
+extension ViewController: FolioReaderPageIndicatorDelegate {
+    func pageScrolled(currentPage: Int, totalPages: Int) {
+        guard let cap = folioReader.readerContainer?.centerViewController?.currentPage?.pageNumber else { return }
+        if totalPages != 0 {
+            let percent = (100 * currentPage) / totalPages
+            guard var readed = readingPercentage[cap] else {
+                readingPercentage[cap] = [percent]
+                return
+            }
+            readed.append(percent)
+            readingPercentage[cap] = readed
+        }
+    }
+}
 
-// MARK: - IBAction
+extension ViewController: FolioReaderPageDelegate {
+    func pageDidLoad(_ page: FolioReaderPage) {
+//        print("*** pageDidLoad")
+//        print("**** PageNumber: \(page.pageNumber)") // Número do captulo
+    }
+}
+
+extension ViewController: FolioReaderCenterDelegate {
+    func pageDidAppear(_ page: FolioReaderPage) {
+//        print("*** pageDidAppear")
+//        print("**** PageNumber: \(page.pageNumber)") // Número do captulo
+    }
+    
+}
+
+extension ViewController: FolioReaderDelegate {
+    func folioReader(_ folioReader: FolioReader, didFinishedLoading book: FRBook) {
+//        print("*** didFinishedLoading")
+//        print("**** CurrentPage: \(folioReader.readerCenter!.currentPage)")
+//        folioReader.readerCenter?.pageIndicatorView?.currentPage
+    }
+    
+    func folioReaderScrollPage(_ folioReader: FolioReader) {
+//        print("**** CurrentPageScroll: \(folioReader.readerCenter!.pageIndicatorView?.currentPage)")
+//        print("*** ReaderScrollPage")
+        folioReader.readerCenter?.getCurrentPageItemNumber()
+    }
+    
+    func renderDidClose() {
+        print("*** Radeing: \(readingPercentage)")
+        
+    }
+}
 
 extension ViewController {
     
