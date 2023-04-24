@@ -7,9 +7,9 @@
 
 import Foundation
 
-public protocol Configurable { }
+protocol Configurable { }
 
-public extension Configurable {
+extension Configurable {
 
     func with(_ configure: (inout Self) -> Void) -> Self {
         var this = self
