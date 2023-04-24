@@ -175,10 +175,6 @@ extension FolioReaderAddHighlightNote: ViewCodable {
         scrollView.addSubview(containerView)
         containerView.addSubview(textView)
         containerView.addSubview(highlightLabel)
-
-        #warning("delete this 2 lines")
-        containerView.backgroundColor = .black
-        textView.backgroundColor = .yellow
     }
 
     func setupAnchors() {
