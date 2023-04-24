@@ -3,7 +3,7 @@
 //  FolioReaderKit
 //
 //  Created by ShuichiNagao on 2018/05/06.
-//
+//  Edited by Luann Luna on 2023/04/24
 
 import UIKit
 import RealmSwift
@@ -12,20 +12,21 @@ import SnapKit
 class FolioReaderAddHighlightNote: UIViewController {
 
     private lazy var textView = UITextView().with {
-        $0.delegate = self
         $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.delegate = self
         $0.textColor = .black
-        $0.backgroundColor = .white
         $0.font = UIFont.boldSystemFont(ofSize: 15)
     }
 
     private lazy var highlightLabel = UILabel().with {
         $0.translatesAutoresizingMaskIntoConstraints = false
         $0.numberOfLines = 3
-        $0.font = UIFont.systemFont(ofSize: 15)
+        $0.font = .systemFont(ofSize: 15, weight: .bold)
     }
 
     private lazy var scrollView = UIScrollView().with {
+        $0.translatesAutoresizingMaskIntoConstraints = false
+        $0.backgroundColor = .white
         $0.bounces = false
     }
 
@@ -104,6 +105,12 @@ class FolioReaderAddHighlightNote: UIViewController {
                                          target: self,
                                          action: #selector(saveNote(_:)))
         navigationItem.rightBarButtonItem = saveButton
+
+        if #available(iOS 13.0, *) {
+            let navBarAppearance = UINavigationBarAppearance()
+            navBarAppearance.backgroundColor = .white
+            UINavigationBar.appearance().standardAppearance = navBarAppearance
+        }
     }
     
     private func configureKeyboardObserver() {
@@ -175,21 +182,19 @@ extension FolioReaderAddHighlightNote: ViewCodable {
         scrollView.addSubview(containerView)
         containerView.addSubview(textView)
         containerView.addSubview(highlightLabel)
-
-        #warning("delete this 2 lines")
-        containerView.backgroundColor = .black
-        textView.backgroundColor = .yellow
     }
 
     func setupAnchors() {
         scrollView.snp.makeConstraints { $0.edges.equalToSuperview() }
-        textView.snp.makeConstraints { $0.edges.equalToSuperview().inset(20) }
 
-        highlightLabel.snp.makeConstraints { make in
-            make.left.equalTo(containerView).inset(20)
-            make.right.equalTo(containerView).inset(-20)
-            make.top.equalTo(containerView).inset(50)
-            make.height.equalTo(70)
+        highlightLabel.snp.makeConstraints {
+            $0.left.right.top.equalTo(containerView).inset(20)
+            $0.height.equalTo(70)
+        }
+
+        textView.snp.makeConstraints {
+            $0.left.right.bottom.equalTo(containerView).inset(20)
+            $0.top.equalTo(highlightLabel.snp.bottom).inset(-20)
         }
     }
 }

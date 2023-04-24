@@ -70,7 +70,10 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
 
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshPageMode), name: NSNotification.Name(rawValue: "needRefreshPageMode"), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(refreshPageMode),
+                                               name: NSNotification.Name(rawValue: "needRefreshPageMode"),
+                                               object: nil)
     }
 
     public func setup(withReaderContainer readerContainer: FolioReaderContainer) {
@@ -95,10 +98,9 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         }
 
         // Remove all gestures before adding new one
-        webView?.gestureRecognizers?.forEach({ gesture in
-            webView?.removeGestureRecognizer(gesture)
-        })
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGesture(_:)))
+        webView?.gestureRecognizers?.forEach(removeGestureRecognizer(_:))
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self,
+                                                          action: #selector(handleTapGesture(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         tapGestureRecognizer.delegate = self
         webView?.addGestureRecognizer(tapGestureRecognizer)
@@ -473,11 +475,9 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
      - parameter identifier: The identifier
      */
     func audioMarkID(_ identifier: String) {
-        guard let currentPage = self.folioReader.readerCenter?.currentPage else {
-            return
-        }
+        guard let currentPage = folioReader.readerCenter?.currentPage else { return }
 
-        let playbackActiveClass = self.book.playbackActiveClass
+        let playbackActiveClass = book.playbackActiveClass
         currentPage.webView?.js("audioMarkID('\(playbackActiveClass)','\(identifier)')")
     }
 

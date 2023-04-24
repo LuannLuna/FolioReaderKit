@@ -1415,8 +1415,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let addHighlightView = FolioReaderAddHighlightNote(withHighlight: highlight, folioReader: folioReader, readerConfig: readerConfig)
         addHighlightView.isEditHighlight = edit
         let nav = UINavigationController(rootViewController: addHighlightView)
-        nav.modalPresentationStyle = .fullScreen
-        
+        nav.modalPresentationStyle = .formSheet
+        nav.navigationBar.barTintColor = .white
         present(nav, animated: true, completion: nil)
     }
 }
