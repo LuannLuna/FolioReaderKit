@@ -51,7 +51,6 @@ class FolioReaderQuoteShare: UIViewController {
         super.viewDidLoad()
 
         self.setCloseButton(withConfiguration: self.readerConfig)
-        configureNavBar()
 
         let titleAttrs = [NSAttributedString.Key.foregroundColor: self.readerConfig.tintColor]
         let share = UIBarButtonItem(title: self.readerConfig.localizedShare, style: .plain, target: self, action: #selector(shareQuote(_:)))
@@ -189,14 +188,6 @@ class FolioReaderQuoteShare: UIViewController {
 
         // Select first item
         selectIndex(0)
-    }
-
-    func configureNavBar() {
-        let navBackground = self.folioReader.isNight(self.readerConfig.nightModeNavBackground, self.readerConfig.daysModeNavBackground)
-        let tintColor = self.readerConfig.tintColor
-        let navText = self.folioReader.isNight(UIColor.white, UIColor.black)
-        let font = UIFont(name: "Avenir-Light", size: 17)!
-        setTranslucentNavigation(false, color: navBackground, tintColor: tintColor, titleColor: navText, andFont: font)
     }
 
     func createDefaultImages() {

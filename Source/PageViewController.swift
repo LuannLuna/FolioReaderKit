@@ -67,19 +67,6 @@ class PageViewController: UIPageViewController {
         self.setCloseButton(withConfiguration: self.readerConfig)
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        configureNavBar()
-    }
-
-    func configureNavBar() {
-        let navBackground = self.folioReader.isNight(self.readerConfig.nightModeMenuBackground,self.readerConfig.daysModeNavBackground)
-        let tintColor = self.readerConfig.tintColor
-        let navText = self.folioReader.isNight(UIColor.white, UIColor.black)
-        let font = UIFont(name: "Avenir-Light", size: 17)!
-        setTranslucentNavigation(false, color: navBackground, tintColor: tintColor, titleColor: navText, andFont: font)
-    }
-
     // MARK: - Segmented control changes
 
     @objc func didSwitchMenu(_ sender: UISegmentedControl) {

@@ -5,7 +5,10 @@ inhibit_all_warnings!
 
 def shared_pods
   pod 'FolioReaderKit', path: '../'
+
 end
+
+install! 'cocoapods', :warn_for_unused_master_specs_repo => false
 
 def testing_pods
   pod 'Quick', '1.3.2'

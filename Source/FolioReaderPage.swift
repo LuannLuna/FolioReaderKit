@@ -122,9 +122,7 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
     }
 
     func webViewFrame() -> CGRect {
-        guard (self.readerConfig.hideBars == false) else {
-            return bounds
-        }
+        guard !readerConfig.hideBars else { return bounds }
 
         let statusbarHeight = UIApplication.shared.statusBarFrame.size.height
         let navBarHeight = self.folioReader.readerCenter?.navigationController?.navigationBar.frame.size.height ?? CGFloat(0)
@@ -132,11 +130,14 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
         let paddingTop: CGFloat = 20
         let paddingBottom: CGFloat = 30
 
-        return CGRect(
-            x: bounds.origin.x,
-            y: self.readerConfig.isDirection(bounds.origin.y + navTotal, bounds.origin.y + navTotal + paddingTop, bounds.origin.y + navTotal),
-            width: bounds.width,
-            height: self.readerConfig.isDirection(bounds.height - navTotal, bounds.height - navTotal - paddingTop - paddingBottom, bounds.height - navTotal)
+        return CGRect(x: bounds.origin.x,
+                      y: self.readerConfig.isDirection(bounds.origin.y + navTotal,
+                                                       bounds.origin.y + navTotal + paddingTop,
+                                                       bounds.origin.y + navTotal),
+                      width: bounds.width,
+                      height: self.readerConfig.isDirection(bounds.height - navTotal,
+                                                            bounds.height - navTotal - paddingTop - paddingBottom,
+                                                            bounds.height - navTotal)
         )
     }
 
@@ -190,10 +191,7 @@ open class FolioReaderPage: UICollectionViewCell, UIWebViewDelegate, UIGestureRe
     // MARK: - UIWebView Delegate
 
     open func webViewDidFinishLoad(_ webView: UIWebView) {
-        guard let webView = webView as? FolioReaderWebView else {
-            return
-        }
-
+        guard let webView = webView as? FolioReaderWebView else { return }
         delegate?.pageWillLoad?(self)
 
         // Add the custom class based onClick listener

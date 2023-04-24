@@ -261,7 +261,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let tintColor = readerConfig.tintColor
         let navText = folioReader.isNight(UIColor.white, UIColor.black)
         let font = UIFont(name: "Avenir-Light", size: 17)!
-        setTranslucentNavigation(color: navBackground, tintColor: tintColor, titleColor: navText, andFont: font)
+//        setTranslucentNavigation(color: navBackground, tintColor: tintColor, titleColor: navText, andFont: font)
     }
 
     func configureNavBarButtons() {
@@ -1415,7 +1415,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let addHighlightView = FolioReaderAddHighlightNote(withHighlight: highlight, folioReader: folioReader, readerConfig: readerConfig)
         addHighlightView.isEditHighlight = edit
         let nav = UINavigationController(rootViewController: addHighlightView)
-        nav.modalPresentationStyle = .formSheet
+        nav.modalPresentationStyle = .fullScreen
         
         present(nav, animated: true, completion: nil)
     }
