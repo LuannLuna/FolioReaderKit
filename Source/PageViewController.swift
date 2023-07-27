@@ -27,8 +27,8 @@ class PageViewController: UIPageViewController {
         self.index = self.folioReader.currentMenuIndex
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
 
-        self.edgesForExtendedLayout = UIRectEdge()
-        self.extendedLayoutIncludesOpaqueBars = true
+//        self.edgesForExtendedLayout = UIRectEdge()
+//        self.extendedLayoutIncludesOpaqueBars = true
     }
 
     required init?(coder: NSCoder) {

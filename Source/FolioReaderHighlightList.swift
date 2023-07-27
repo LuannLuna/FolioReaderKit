@@ -190,7 +190,13 @@ class FolioReaderHighlightList: UITableViewController {
 
             if (highlight.page == self.folioReader.readerCenter?.currentPageNumber),
                 let page = self.folioReader.readerCenter?.currentPage {
-                Highlight.removeFromHTMLById(withinPage: page, highlightId: highlight.highlightId) // Remove from HTML
+//                Highlight.removeFromHTMLById(withinPage: page, highlightId: highlight.highlightId) // Remove from HTML
+                
+                page.webView?.js("removeHighlightById('\(highlight.highlightId)')", completionHandler: { _, error in
+                    if let error = error {
+                        print("Error evaluating JavaScript: \(error.localizedDescription)")
+                    }
+                })
             }
 
             highlight.remove(withConfiguration: self.readerConfig) // Remove from Database

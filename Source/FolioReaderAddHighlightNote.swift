@@ -83,7 +83,12 @@ class FolioReaderAddHighlightNote: UIViewController {
         
         if !highlightSaved && !isEditHighlight {
             guard let currentPage = folioReader.readerCenter?.currentPage else { return }
-            currentPage.webView?.js("removeThisHighlight()")
+//            currentPage.webView?.js("removeThisHighlight()")
+            currentPage.webView?.js("removeThisHighlight()", completionHandler: { _, error in
+                if let error = error {
+                    print("Error evaluating JavaScript: \(error.localizedDescription)")
+                }
+            })
         }
     }
     
