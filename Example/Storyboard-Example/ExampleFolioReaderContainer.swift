@@ -16,6 +16,7 @@ class ExampleFolioReaderContainer: FolioReaderContainer {
 
         let config = FolioReaderConfig()
         config.scrollDirection = .horizontalWithVerticalContent
+        
         config.shouldHideNavigationOnTap = false
 
         // Print the chapter ID if one was clicked

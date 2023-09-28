@@ -33,6 +33,7 @@ public enum FolioReaderScrollDirection: Int {
             return .vertical
         case .horizontal, .horizontalWithVerticalContent:
             return .horizontal
+            
         }
     }
 }
@@ -161,6 +162,9 @@ open class FolioReaderConfig: NSObject {
 
     /// Go to saved position when open a book
     open var loadSavedPositionForCurrentBook = true
+    
+    ///
+    open var hideScrollScrubber = false
     
     // MARK: Quote image share
 

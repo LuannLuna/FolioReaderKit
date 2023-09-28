@@ -199,10 +199,13 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         }
 
         guard let readerContainer = readerContainer else { return }
-        self.scrollScrubber = ScrollScrubber(frame: frameForScrollScrubber(), withReaderContainer: readerContainer)
-        self.scrollScrubber?.delegate = self
-        if let scrollScrubber = scrollScrubber {
-            view.addSubview(scrollScrubber.slider)
+        
+        if !readerConfig.hideScrollScrubber {
+            self.scrollScrubber = ScrollScrubber(frame: frameForScrollScrubber(), withReaderContainer: readerContainer)
+            self.scrollScrubber?.delegate = self
+            if let scrollScrubber = scrollScrubber {
+                view.addSubview(scrollScrubber.slider)
+            }
         }
     }
 
